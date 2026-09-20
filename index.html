@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rabo Alegre Pet Shop | Banho e tosa, veterinário e loja</title>
+<meta name="description" content="Banho e tosa, consulta veterinária, creche e loja de rações num lugar só. Monte seu agendamento e veja o valor na hora.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F8FF;
+    --surface: #FFFFFF;
+    --ink: #0E1B4D;
+    --muted: #46508A;
+    --line: #D8DFF6;
+    --blue: #1F4FE0;
+    --blue-deep: #1739B8;
+    --yellow: #FFC93C;
+    --pink: #FF8FA3;
+    --link: #1F4FE0;
+    --focus: #1F4FE0;
+    --font-display: "Bricolage Grotesque", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0A1030;
+      --surface: #111A48;
+      --ink: #EEF1FF;
+      --muted: #AAB4E2;
+      --line: #27316C;
+      --link: #9DB2FF;
+      --focus: #FFC93C;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0A1030;
+    --surface: #111A48;
+    --ink: #EEF1FF;
+    --muted: #AAB4E2;
+    --line: #27316C;
+    --link: #9DB2FF;
+    --focus: #FFC93C;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html {
+    background: var(--bg);
+    scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 84px);
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  [hidden] { display: none !important; }
+  img, svg { max-width: 100%; }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; }
+  p { margin: 0; }
+  ul, ol, dl { margin: 0; padding: 0; list-style: none; }
+  a { color: var(--link); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .hero :focus-visible, .summary :focus-visible, .visit :focus-visible { outline-color: var(--yellow); }
+
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+  .section { padding: 88px 0; }
+  .section-head { max-width: 640px; margin-bottom: 40px; }
+  .section-head h2, .services-intro h2, .visit h2 {
+    font-size: clamp(1.9rem, 4.2vw, 3rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .section-head p, .services-intro p { color: var(--muted); margin-top: 14px; max-width: 52ch; }
+
+  /* Botões */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 24px; border-radius: 999px; border: 2px solid transparent;
+    font: 700 1rem/1 var(--font-body); text-decoration: none; cursor: pointer;
+    transition: background-color .15s, border-color .15s;
+  }
+  .btn--yellow { background: var(--yellow); color: #0E1B4D; }
+  .btn--yellow:hover { background: #FFD866; }
+  .btn--ghost { border-color: rgba(255,255,255,.7); color: #fff; }
+  .btn--ghost:hover { background: rgba(255,255,255,.12); }
+  .btn--blue { background: var(--blue); color: #fff; }
+  .btn--blue:hover { background: var(--blue-deep); }
+  .btn--sm { padding: 10px 18px; font-size: .95rem; }
+  .btn--block { width: 100%; }
+
+  /* Cabeçalho */
+  .site-header {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+  }
+  .bar { max-width: 1160px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 28px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink);
+    font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; }
+  .brand svg { width: 32px; height: 32px; }
+  .nav { margin-left: auto; display: flex; gap: 26px; }
+  .nav a { color: var(--ink); text-decoration: none; font-weight: 600; }
+  .nav a:hover { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+  .bar .btn { margin-left: 0; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; background: var(--blue); color: #fff; }
+  .bubble { position: absolute; border-radius: 50%; background: rgba(255,255,255,.08); }
+  .bubble--a { width: 220px; height: 220px; left: -60px; top: 40px; }
+  .bubble--c { width: 150px; height: 150px; right: 6%; top: 24px; }
+  .hero-inner {
+    position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 24px;
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 24px; align-items: end;
+  }
+  .hero-copy { padding: 72px 0 88px; }
+  .hero h1 {
+    font-weight: 800; font-size: clamp(2.5rem, 6vw, 4.9rem); line-height: 1.02;
+    letter-spacing: -0.028em; max-width: 17ch; margin-bottom: 22px;
+  }
+  .hero-lead { font-size: 1.2rem; max-width: 46ch; color: rgba(255,255,255,.92); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero-note { margin-top: 22px; font-size: .95rem; color: rgba(255,255,255,.82); }
+  .hero-dog { display: block; width: 100%; max-width: 440px; height: auto; justify-self: center; align-self: end; }
+  .ear { transform-box: fill-box; }
+  .ear-l { transform-origin: 79% 7%; animation: wiggle-l 1.2s ease-in-out .6s 2; }
+  .ear-r { transform-origin: 21% 7%; animation: wiggle-r 1.2s ease-in-out .6s 2; }
+  @keyframes wiggle-l { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-8deg); } 65% { transform: rotate(4deg); } }
+  @keyframes wiggle-r { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(8deg); } 65% { transform: rotate(-4deg); } }
+
+  /* Agendamento */
+  .booking { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 48px; align-items: start; }
+  fieldset { border: 0; padding: 0; margin: 0 0 28px; min-width: 0; }
+  legend { font-weight: 700; margin-bottom: 10px; padding: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { position: relative; display: inline-block; }
+  .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; width: 100%; height: 100%; cursor: pointer; }
+  .chip span {
+    display: flex; flex-direction: column; padding: 12px 18px; border: 2px solid var(--line);
+    border-radius: 16px; background: var(--surface); font-weight: 600; line-height: 1.3;
+    transition: border-color .15s, background-color .15s;
+  }
+  .chip small { font-weight: 400; font-size: .85rem; color: var(--muted); }
+  .chip:hover span { border-color: var(--blue); }
+  .chip input:checked + span { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .chip input:checked + span small { color: rgba(255,255,255,.85); }
+  .chip input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: grid; gap: 6px; }
+  .field label { font-weight: 700; }
+  .field input {
+    font: inherit; color: var(--ink); background: var(--surface); padding: 12px 14px;
+    border: 2px solid var(--line); border-radius: 12px; width: 100%; min-width: 0;
+  }
+  .field input::placeholder { color: var(--muted); opacity: .8; }
+
+  .summary {
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 92px);
+    background: var(--blue); color: #fff; border-radius: 28px; padding: 28px;
+  }
+  .summary h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 14px; }
+  .lines li {
+    display: flex; justify-content: space-between; gap: 16px; padding: 10px 0;
+    border-bottom: 2px dashed rgba(255,255,255,.3);
+  }
+  .lines li span:last-child { font-weight: 700; white-space: nowrap; }
+  .total { display: flex; flex-direction: column; margin: 18px 0 22px; }
+  .total span { font-size: .95rem; color: rgba(255,255,255,.85); }
+  .total strong { font-family: var(--font-display); font-weight: 800; font-size: 3.2rem; line-height: 1.05; letter-spacing: -0.02em; }
+  .fineprint { margin-top: 14px; font-size: .88rem; color: rgba(255,255,255,.82); }
+
+  /* Serviços */
+  .services { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .services-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; }
+  .services-intro { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 100px); }
+  .service { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 20px; align-items: start; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .service:first-child { padding-top: 0; }
+  .service:last-child { border-bottom: 0; padding-bottom: 0; }
+  .ico { width: 52px; height: 52px; border-radius: 50%; background: var(--yellow); color: #0E1B4D; display: grid; place-items: center; }
+  .ico svg { width: 26px; height: 26px; }
+  .service h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
+  .service p { color: var(--muted); margin-top: 4px; max-width: 48ch; }
+  .from { text-align: right; font-size: .9rem; color: var(--muted); white-space: nowrap; }
+  .from strong { display: block; font-family: var(--font-display); font-size: 1.3rem; color: var(--ink); }
+  .from a { display: inline-block; margin-top: 4px; font-weight: 700; }
+
+  /* Como funciona */
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; counter-reset: step; }
+  .step { position: relative; }
+  .step-n {
+    width: 48px; height: 48px; border-radius: 50%; background: var(--yellow); color: #0E1B4D;
+    display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
+    position: relative; z-index: 1;
+  }
+  .step:not(:last-child)::after {
+    content: ""; position: absolute; top: 23px; left: 60px; right: -16px; border-top: 2px dashed var(--line);
+  }
+  .step h3 { font-size: 1.2rem; font-weight: 700; margin: 16px 0 6px; }
+  .step p { color: var(--muted); }
+
+  /* Depoimentos */
+  .quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
+  .quote:nth-child(2) { margin-top: 44px; }
+  .quote blockquote { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; line-height: 1.35; letter-spacing: -0.01em; }
+  .quote figcaption { margin-top: 14px; color: var(--muted); font-size: .95rem; }
+  .quote { margin: 0; }
+
+  /* Visita */
+  .visit { background: var(--blue); color: #fff; }
+  .visit-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: start; }
+  .visit-lead { margin-top: 16px; font-size: 1.15rem; color: rgba(255,255,255,.92); max-width: 40ch; }
+  .visit address { font-style: normal; margin-top: 22px; font-weight: 600; }
+  .visit .btn { margin-top: 26px; }
+  .hours-title { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; margin-bottom: 8px; }
+  .hours div { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 2px dashed rgba(255,255,255,.3); }
+  .hours dt { font-weight: 600; }
+  .hours dd { margin: 0; }
+  .site-footer { background: var(--blue); color: rgba(255,255,255,.8); font-size: .9rem; padding: 0 0 28px; }
+  .site-footer .wrap { border-top: 1px solid rgba(255,255,255,.25); padding-top: 22px; }
+
+  /* Responsivo */
+  @media (max-width: 960px) {
+    .booking, .services-grid, .visit-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+    .summary, .services-intro { position: static; }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; }
+    .step:not(:last-child)::after { display: none; }
+    .quotes { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .quote:nth-child(2) { margin-top: 0; }
+  }
+  @media (max-width: 760px) {
+    .nav { display: none; }
+    .bar .btn { margin-left: auto; }
+    .section { padding: 64px 0; }
+    .hero-inner { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .hero-copy { padding: 44px 0 36px; }
+    .hero-dog { max-width: 300px; }
+    .row { grid-template-columns: minmax(0, 1fr); }
+    .service { grid-template-columns: 52px minmax(0, 1fr); }
+    .from { grid-column: 2; text-align: left; }
+    .from strong { display: inline; margin-left: 4px; }
+    .from a { margin: 0 0 0 14px; }
+  }
+  @media (max-width: 480px) {
+    .steps { grid-template-columns: minmax(0, 1fr); }
+    .total strong { font-size: 2.7rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .ear-l, .ear-r { animation: none; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="#topo" aria-label="Rabo Alegre Pet Shop, início">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <ellipse cx="7" cy="14" rx="3" ry="4" fill="#1F4FE0" transform="rotate(-20 7 14)"/>
+        <ellipse cx="13" cy="8" rx="3" ry="4.2" fill="#1F4FE0" transform="rotate(-6 13 8)"/>
+        <ellipse cx="20" cy="8" rx="3" ry="4.2" fill="#1F4FE0" transform="rotate(6 20 8)"/>
+        <ellipse cx="26" cy="14" rx="3" ry="4" fill="#1F4FE0" transform="rotate(20 26 14)"/>
+        <path d="M16.5 14c4.6 0 8.5 4.6 8.5 8.4 0 3-2.4 4.1-4.7 4.1-1.5 0-2.5-.6-3.8-.6s-2.300.6-3.800.6c-2.300 0-4.700-1.100-4.700-4.100C8 18.600 11.900 14 16.500 14z" fill="#FFC93C"/>
+      </svg>
+      Rabo Alegre
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn--blue btn--sm" href="#agendar">Agendar</a>
+  </div>
+</header>
+
+<main id="topo">
+  <section class="hero">
+    <span class="bubble bubble--a" aria-hidden="true"></span>
+    <span class="bubble bubble--c" aria-hidden="true"></span>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1>Seu pet volta pra casa cheiroso e de rabo abanando.</h1>
+        <p class="hero-lead">Banho e tosa, veterinário, creche e loja de rações no mesmo endereço. Escolha o serviço, veja o valor e agende em menos de um minuto.</p>
+        <div class="hero-actions">
+          <a class="btn btn--yellow" href="#agendar">Agendar banho e tosa</a>
+          <a class="btn btn--ghost" href="#servicos">Ver serviços</a>
+        </div>
+        <p class="hero-note">Atendemos de segunda a sábado e confirmamos seu horário pelo WhatsApp.</p>
+      </div>
+
+      <svg class="hero-dog" viewBox="0 0 420 452" role="img" aria-label="Ilustração de um cachorro caramelo espiando por cima da borda da página">
+        <!-- corpo -->
+        <path d="M56 452 C56 330 110 268 210 268 C310 268 364 330 364 452Z" fill="#E8A64A"/>
+        <path d="M168 452 C168 396 190 362 210 362 C230 362 252 396 252 452Z" fill="#FFF1D6"/>
+        <!-- coleira -->
+        <path d="M130 300 Q210 320 290 300 L292 322 Q210 350 128 322Z" fill="#FF8FA3"/>
+        <circle cx="210" cy="352" r="15" fill="#FFC93C"/>
+        <circle cx="205" cy="347" r="4" fill="#FFF1D6" opacity=".8"/>
+        <!-- patas -->
+        <rect x="104" y="376" width="72" height="100" rx="32" fill="#E8A64A"/>
+        <rect x="244" y="376" width="72" height="100" rx="32" fill="#E8A64A"/>
+        <ellipse cx="140" cy="438" rx="40" ry="26" fill="#FFF1D6"/>
+        <ellipse cx="280" cy="438" rx="40" ry="26" fill="#FFF1D6"/>
+        <path d="M128 430v14M140 428v16M152 430v14M268 430v14M280 428v16M292 430v14" stroke="#B9701F" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <!-- cabeça -->
+        <ellipse cx="210" cy="205" rx="118" ry="108" fill="#E8A64A"/>
+        <path d="M210 108 C236 108 248 160 248 212 L172 212 C172 160 184 108 210 108Z" fill="#FFF1D6"/>
+        <ellipse cx="210" cy="252" rx="64" ry="50" fill="#FFF1D6"/>
+        <ellipse cx="160" cy="154" rx="11" ry="7" fill="#F2BE72"/>
+        <ellipse cx="260" cy="154" rx="11" ry="7" fill="#F2BE72"/>
+        <!-- olhos -->
+        <circle cx="160" cy="182" r="13" fill="#1B1230"/>
+        <circle cx="260" cy="182" r="13" fill="#1B1230"/>
+        <circle cx="165" cy="177" r="4.5" fill="#fff"/>
+        <circle cx="265" cy="177" r="4.5" fill="#fff"/>
+        <!-- focinho -->
+        <path d="M186 224 C186 210 234 210 234 224 C234 240 218 249 210 249 C202 249 186 240 186 224Z" fill="#2A1A12"/>
+        <ellipse cx="200" cy="221" rx="8" ry="3" fill="#fff" opacity=".35"/>
+        <path d="M196 272 C196 304 224 304 224 272Z" fill="#FF8FA3"/>
+        <path d="M210 276 V292" stroke="#E5647E" stroke-width="3" stroke-linecap="round"/>
+        <path d="M210 249 V262 M180 260 C190 280 210 278 210 262 C210 278 230 280 240 260" fill="none" stroke="#2A1A12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- orelhas -->
+        <path class="ear ear-l" d="M112 128 C62 116 28 190 52 262 C66 300 112 296 124 252 C134 214 134 160 112 128Z" fill="#B9701F"/>
+        <path class="ear ear-r" d="M308 128 C358 116 392 190 368 262 C354 300 308 296 296 252 C286 214 286 160 308 128Z" fill="#B9701F"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section" id="agendar">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Monte seu agendamento e veja o valor na hora</h2>
+        <p>Escolha o serviço, confira a estimativa e envie tudo pronto pelo WhatsApp.</p>
+      </div>
+
+      <div class="booking">
+        <form id="form" autocomplete="off">
+          <fieldset>
+            <legend>Quem vai ser atendido?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="pet" value="dog" checked><span>Cachorro</span></label>
+              <label class="chip"><input type="radio" name="pet" value="cat"><span>Gato</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset id="size-group">
+            <legend>Qual o porte?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="size" value="small"><span>Pequeno<small>até 10 kg</small></span></label>
+              <label class="chip"><input type="radio" name="size" value="medium" checked><span>Médio<small>10 a 25 kg</small></span></label>
+              <label class="chip"><input type="radio" name="size" value="large"><span>Grande<small>mais de 25 kg</small></span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Qual serviço?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="service" value="banho"><span>Banho</span></label>
+              <label class="chip"><input type="radio" name="service" value="tosa" checked><span>Banho e tosa</span></label>
+              <label class="chip"><input type="radio" name="service" value="higienica"><span>Tosa higiênica</span></label>
+              <label class="chip"><input type="radio" name="service" value="consulta"><span>Consulta veterinária</span></label>
+              <label class="chip"><input type="radio" name="service" value="hospedagem"><span>Creche e hospedagem</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Precisa de transporte?</legend>
+            <div class="chips">
+              <label class="chip"><input type="checkbox" name="taxi" value="1"><span>Quero o táxi dog<small>mais R$ 15</small></span></label>
+            </div>
+          </fieldset>
+
+          <div class="row">
+            <div class="field">
+              <label for="pet-name">Nome do pet</label>
+              <input id="pet-name" name="petName" type="text" maxlength="40" placeholder="Ex.: Mel">
+            </div>
+            <div class="field">
+              <label for="day">Melhor dia</label>
+              <input id="day" name="day" type="date">
+            </div>
+          </div>
+        </form>
+
+        <aside class="summary" aria-label="Resumo do agendamento">
+          <h3>Sua estimativa</h3>
+          <ul class="lines" id="lines"></ul>
+          <p class="total">
+            <span>Total estimado</span>
+            <strong id="total" aria-live="polite">R$ 0</strong>
+          </p>
+          <a class="btn btn--yellow btn--block" id="wa" href="#" target="_blank" rel="noopener">Enviar pelo WhatsApp</a>
+          <p class="fineprint">O valor final depende do tipo de pelo e do estado do pet. Confirmamos tudo no atendimento.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section services" id="servicos">
+    <div class="wrap services-grid">
+      <div class="services-intro">
+        <h2>Tudo o que seu pet precisa, no mesmo endereço</h2>
+        <p>Da higiene à consulta, da diária à ração do mês: um lugar só, com gente que sabe o nome dele.</p>
+      </div>
+
+      <ul class="service-list">
+        <li class="service">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="5"/><circle cx="17" cy="8" r="3.5"/><circle cx="18" cy="17" r="2"/></svg></span>
+          <div>
+            <h3>Banho e tosa</h3>
+            <p>Shampoo certo para cada tipo de pelo, secagem sem pressa e a tosa do jeito que você pedir.</p>
+          </div>
+          <p class="from">a partir de <strong>R$ 45</strong><a href="#agendar" data-pick="tosa">Agendar</a></p>
+        </li>
+        <li class="service">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.500" y="3.500" width="17" height="17" rx="5"/><path d="M12 8v8M8 12h8"/></svg></span>
+          <div>
+            <h3>Consulta veterinária</h3>
+            <p>Check-up, vacinas e vermífugo, com hora marcada e sem fila de espera.</p>
+          </div>
+          <p class="from">consulta <strong>R$ 90</strong><a href="#agendar" data-pick="consulta">Agendar</a></p>
+        </li>
+        <li class="service">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg></span>
+          <div>
+            <h3>Creche e hospedagem</h3>
+            <p>Ele brinca, passeia e descansa enquanto você trabalha ou viaja. Você recebe fotos durante o dia.</p>
+          </div>
+          <p class="from">diária a partir de <strong>R$ 40</strong><a href="#agendar" data-pick="hospedagem">Agendar</a></p>
+        </li>
+        <li class="service">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg></span>
+          <div>
+            <h3>Loja de rações e acessórios</h3>
+            <p>Rações das principais marcas, areia, petiscos, coleiras e brinquedos. Levamos na sua casa.</p>
+          </div>
+          <p class="from">entrega<strong>no bairro</strong></p>
+        </li>
+        <li class="service">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3l2-5h12l2 5v3z"/><circle cx="8" cy="17.500" r="1.600"/><circle cx="16" cy="17.500" r="1.600"/></svg></span>
+          <div>
+            <h3>Táxi dog</h3>
+            <p>Buscamos e levamos seu pet em caixa de transporte e com cinto de segurança.</p>
+          </div>
+          <p class="from">a partir de <strong>R$ 15</strong></p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="como-funciona">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Do agendamento ao rabo abanando</h2>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-n" aria-hidden="true">1</span>
+          <h3>Você agenda</h3>
+          <p>Escolha o serviço e mande pelo WhatsApp. Confirmamos o horário na hora.</p>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true">2</span>
+          <h3>A gente busca</h3>
+          <p>Se preferir, o táxi dog pega seu pet em casa, com toda a segurança.</p>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true">3</span>
+          <h3>Ele é cuidado</h3>
+          <p>Banho, tosa, consulta ou brincadeira, sempre com um profissional por pet.</p>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true">4</span>
+          <h3>Volta com foto</h3>
+          <p>Você recebe uma foto do resultado antes de ele voltar pra casa.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Quem já deixou o pet com a gente</h2>
+      </div>
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote>A Mel chega toda descabelada e volta cheirosa, penteada e de laço. Ainda recebo a foto antes de ela sair.</blockquote>
+          <figcaption>Camila, tutora da Mel</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>O Thor odeia veterinário. Levei com medo e ele saiu de lá abanando o rabo.</blockquote>
+          <figcaption>Antônio, tutor do Thor</figcaption>
+        </figure>
+        <figure class="quote">
+          <blockquote>Deixei a Luna no fim de semana e recebi foto dela dormindo no sol. Viajei tranquila.</blockquote>
+          <figcaption>Larissa, tutora da Luna</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section visit" id="contato">
+    <div class="wrap visit-grid">
+      <div>
+        <h2>Passa aqui ou chama no WhatsApp</h2>
+        <p class="visit-lead">Tire dúvidas, peça um orçamento ou marque a primeira visita do seu pet.</p>
+        <address>Rua das Palmeiras, 123, Centro<br>(98) 90000-0000</address>
+        <a class="btn btn--yellow" id="wa-contact" href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+      <div>
+        <p class="hours-title">Horário de atendimento</p>
+        <dl class="hours">
+          <div><dt>Segunda a sexta</dt><dd>8h às 18h</dd></div>
+          <div><dt>Sábado</dt><dd>8h às 16h</dd></div>
+          <div><dt>Domingo e feriados</dt><dd>Fechado</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">© 2026 Rabo Alegre Pet Shop. Todos os direitos reservados.</div>
+</footer>
+
+<script>
+(function () {
+  // Troque pelo número real da loja: 55 + DDD + número, só dígitos.
+  var WHATSAPP = "5598900000000";
+  var TAXI = 15;
+
+  var SERVICES = {
+    banho:      { name: "Banho",                dog: { small: 45, medium: 65,  large: 90 },  cat: 60 },
+    tosa:       { name: "Banho e tosa",         dog: { small: 75, medium: 100, large: 135 }, cat: 90 },
+    higienica:  { name: "Tosa higiênica",       dog: { small: 35, medium: 45,  large: 60 },  cat: 40 },
+    consulta:   { name: "Consulta veterinária", dog: { small: 90, medium: 90,  large: 90 },  cat: 90 },
+    hospedagem: { name: "Creche e hospedagem (diária)", dog: { small: 40, medium: 55, large: 75 }, cat: 45 }
+  };
+  var SIZE_WORD = { small: "pequeno", medium: "médio", large: "grande" };
+
+  var form = document.getElementById("form");
+  var sizeGroup = document.getElementById("size-group");
+  var linesEl = document.getElementById("lines");
+  var totalEl = document.getElementById("total");
+  var waEl = document.getElementById("wa");
+  var dayEl = document.getElementById("day");
+
+  function brl(n) { return "R$ " + n.toLocaleString("pt-BR"); }
+
+  var d = new Date();
+  dayEl.min = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+
+  document.getElementById("wa-contact").href =
+    "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent("Olá, Rabo Alegre! Gostaria de mais informações.");
+
+  function update() {
+    var els = form.elements;
+    var pet = els.pet.value;
+    var service = els.service.value;
+    var size = els.size.value;
+    var taxi = els.taxi.checked;
+    var petName = els.petName.value.trim();
+
+    var needsSize = pet === "dog" && service !== "consulta";
+    sizeGroup.hidden = !needsSize;
+
+    var s = SERVICES[service];
+    var base = pet === "cat" ? s.cat : s.dog[size];
+    var total = base + (taxi ? TAXI : 0);
+
+    var petDesc = pet === "cat" ? "gato" : (needsSize ? "cachorro de porte " + SIZE_WORD[size] : "cachorro");
+    var rows = [[s.name + " (" + petDesc + ")", base]];
+    if (taxi) rows.push(["Táxi dog", TAXI]);
+
+    linesEl.textContent = "";
+    rows.forEach(function (r) {
+      var li = document.createElement("li");
+      var a = document.createElement("span");
+      var b = document.createElement("span");
+      a.textContent = r[0];
+      b.textContent = brl(r[1]);
+      li.appendChild(a);
+      li.appendChild(b);
+      linesEl.appendChild(li);
+    });
+    totalEl.textContent = brl(total);
+
+    var who = petName ? petName + " (" + petDesc + ")" : "meu " + petDesc;
+    var msg = ["Olá, Rabo Alegre! Quero agendar " + s.name.toLowerCase() + " para " + who + "."];
+    msg.push("Táxi dog: " + (taxi ? "sim" : "não"));
+    if (dayEl.value) {
+      var p = dayEl.value.split("-");
+      msg.push("Melhor dia: " + p[2] + "/" + p[1]);
+    }
+    msg.push("Valor estimado: " + brl(total));
+    waEl.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg.join("\n"));
+  }
+
+  form.addEventListener("input", update);
+  form.addEventListener("change", update);
+  form.addEventListener("submit", function (e) { e.preventDefault(); });
+
+  document.querySelectorAll("[data-pick]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      var r = form.querySelector('input[name="service"][value="' + a.getAttribute("data-pick") + '"]');
+      if (r) { r.checked = true; update(); }
+    });
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
